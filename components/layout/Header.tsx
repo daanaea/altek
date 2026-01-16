@@ -31,19 +31,18 @@ export default function Header() {
       )}
     >
       <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16 gap-4">
+        <div className="flex items-center justify-between h-28 gap-4">
           <button
             onClick={() => scrollToSection('hero')}
-            className="flex items-center gap-2 text-xl font-bold text-gray-900"
+            className="flex items-center"
           >
             <Image
-              src="/images/logo.svg"
+              src="/altek_pro_logo.svg"
               alt="Altek Pro Logo"
-              width={32}
-              height={32}
-              className="w-8 h-8"
+              width={150}
+              height={54}
+              className="h-20 w-auto"
             />
-            <span className="hidden sm:inline">Altek Pro</span>
           </button>
 
           <nav className="flex items-center gap-3">
@@ -56,13 +55,13 @@ export default function Header() {
 
             {/* Phone Button */}
             <a
-              href="tel:3413338855"
+              href="tel:3412382682"
               className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span className="hidden sm:inline">341 333 88 55</span>
+              <span className="hidden sm:inline">(341) 238 26 82</span>
             </a>
 
             {/* Request a Job Button */}

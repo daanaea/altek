@@ -6,19 +6,19 @@ export default function ReviewsSection() {
   const reviews = [
     {
       id: 1,
-      name: 'Michael R.',
+      name: 'Bradley R.',
       rating: 5,
       text: 'Outstanding work! Al was professional, punctual, and did an excellent job installing our new ceiling fan and fixing electrical outlets. Highly recommend!',
       service: 'Electrical',
-      date: '2 weeks ago',
+      // date: '2 weeks ago',
     },
     {
       id: 2,
-      name: 'Jennifer L.',
+      name: 'Josh G.',
       rating: 5,
-      text: 'Very impressed with the quality of work. The painting job looks flawless and he was very meticulous with the details. Will definitely hire again!',
+      text: 'Very impressed with the quality of work. The painting job looks flawless and he was very meticulous with the details.',
       service: 'Interior Painting',
-      date: '1 month ago',
+      // date: '1 month ago',
     },
     {
       id: 3,
@@ -26,23 +26,23 @@ export default function ReviewsSection() {
       rating: 5,
       text: 'Great experience from start to finish. Fixed our plumbing issue quickly and explained everything clearly. Fair pricing and honest service.',
       service: 'Plumbing',
-      date: '3 weeks ago',
+      // date: '3 weeks ago',
     },
     {
       id: 4,
-      name: 'Sarah M.',
+      name: 'Karina M.',
       rating: 5,
       text: 'Al helped us assemble all our IKEA furniture and mount our TV. Saved us so much time and frustration. Very professional and efficient!',
       service: 'Assembly & TV Mounting',
-      date: '2 months ago',
+      // date: '2 months ago',
     },
     {
       id: 5,
       name: 'Robert T.',
       rating: 5,
-      text: 'Excellent carpentry work on our deck repair. The attention to detail and craftsmanship exceeded our expectations. Highly skilled!',
+      text: 'Excellent carpentry work on our deck repair. The attention to detail and craftsmanship exceeded our expectations.',
       service: 'Carpentry',
-      date: '1 month ago',
+      // date: '1 month ago',
     },
     {
       id: 6,
@@ -50,7 +50,7 @@ export default function ReviewsSection() {
       rating: 5,
       text: 'Prompt, professional, and friendly service. Fixed our drywall and did some painting. The results are perfect and he cleaned up everything after.',
       service: 'Drywall & Painting',
-      date: '3 weeks ago',
+      // date: '3 weeks ago',
     },
   ];
 
@@ -78,7 +78,7 @@ export default function ReviewsSection() {
 
               {/* Review Text */}
               <p className="text-gray-700 text-sm mb-4 leading-relaxed">
-                &quot;{review.text}&quot;
+                {review.text}
               </p>
 
               {/* Reviewer Info */}

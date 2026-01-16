@@ -153,4 +153,30 @@ export const services: Service[] = [
       'Privacy window films',
     ],
   },
+  {
+    id: 'skylight',
+    title: 'Skylight Repair & Installation',
+    icon: '/images/services/skylight.svg',
+    subServices: [
+      'Skylight repair',
+      'Skylight installation',
+      'Skylight replacement',
+      'Leak repair',
+      'Frame repair',
+      'Glass replacement',
+    ],
+  },
+  {
+    id: 'roofing',
+    title: 'Roofing',
+    icon: '/images/services/roofing.svg',
+    subServices: [
+      'Roof repair',
+      'Roof leak repair',
+      'Shingle replacement',
+      'Gutter repair',
+      'Roof inspection',
+      'Emergency roof repair',
+    ],
+  },
 ];

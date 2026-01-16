@@ -8,7 +8,7 @@ export default function ContactSection() {
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            Get a Quote
+            Request a Job
           </h2>
           <p className="text-gray-600">
             We&apos;ll respond within 24 hours
