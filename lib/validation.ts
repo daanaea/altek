@@ -12,6 +12,7 @@ export const contactSchema = z.object({
   description: z.string()
     .min(10, 'Please provide at least 10 characters')
     .max(500, 'Description is too long (max 500 characters)'),
+  photos: z.array(z.string().url()).optional(),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;

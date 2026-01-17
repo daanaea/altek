@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { contactSchema } from '@/lib/validation';
-import { sendContactEmail } from '@/lib/email';
+import { sendContactEmail, sendConfirmationEmail } from '@/lib/email';
 import { appendToGoogleSheet } from '@/lib/google-sheets';
 
 export async function POST(request: Request) {
@@ -23,24 +23,29 @@ export async function POST(request: Request) {
     // Run email and sheets operations in parallel
     const results = await Promise.allSettled([
       sendContactEmail(data),
+      sendConfirmationEmail(data),
       appendToGoogleSheet(data),
     ]);
 
-    // Check if both operations succeeded
-    const emailResult = results[0];
-    const sheetsResult = results[1];
+    // Check if all operations succeeded
+    const ownerEmailResult = results[0];
+    const confirmationEmailResult = results[1];
+    const sheetsResult = results[2];
 
-    if (emailResult.status === 'rejected') {
-      console.error('Email failed:', emailResult.reason);
+    if (ownerEmailResult.status === 'rejected') {
+      console.error('Owner email failed:', ownerEmailResult.reason);
+    }
+
+    if (confirmationEmailResult.status === 'rejected') {
+      console.error('Confirmation email failed:', confirmationEmailResult.reason);
     }
 
     if (sheetsResult.status === 'rejected') {
       console.error('Sheets logging failed:', sheetsResult.reason);
     }
 
-    // Return success if at least one operation succeeded
-    // (You might want to adjust this logic based on your requirements)
-    if (emailResult.status === 'fulfilled' || sheetsResult.status === 'fulfilled') {
+    // Return success if at least one email succeeded
+    if (ownerEmailResult.status === 'fulfilled' || confirmationEmailResult.status === 'fulfilled') {
       return NextResponse.json(
         {
           success: true,
@@ -49,7 +54,7 @@ export async function POST(request: Request) {
         { status: 200 }
       );
     } else {
-      throw new Error('Both email and sheets operations failed');
+      throw new Error('Both email operations failed');
     }
   } catch (error) {
     console.error('API route error:', error);

@@ -5,24 +5,18 @@ import Image from 'next/image';
 export default function GallerySection() {
   // Real project photos
   const galleryItems = [
-    { id: 1, image: 'WhatsApp Image 2026-01-07 at 18.51.07.jpeg', title: 'Project 1' },
-    { id: 2, image: 'WhatsApp Image 2026-01-07 at 18.51.09.jpeg', title: 'Project 2' },
-    { id: 3, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (1).jpeg', title: 'Project 3' },
-    { id: 4, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (2).jpeg', title: 'Project 4' },
-    { id: 5, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (3).jpeg', title: 'Project 5' },
-    { id: 6, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (4).jpeg', title: 'Project 6' },
-    { id: 7, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (5).jpeg', title: 'Project 7' },
-    { id: 8, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (6).jpeg', title: 'Project 8' },
-    { id: 9, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (7).jpeg', title: 'Project 9' },
-    { id: 10, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (8).jpeg', title: 'Project 10' },
-    { id: 11, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (9).jpeg', title: 'Project 11' },
-    { id: 12, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (10).jpeg', title: 'Project 12' },
-    { id: 13, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (11).jpeg', title: 'Project 13' },
-    { id: 14, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (12).jpeg', title: 'Project 14' },
-    { id: 15, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (13).jpeg', title: 'Project 15' },
-    { id: 16, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (14).jpeg', title: 'Project 16' },
-    { id: 17, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (15).jpeg', title: 'Project 17' },
-    { id: 18, image: 'WhatsApp Image 2026-01-07 at 18.51.09 (16).jpeg', title: 'Project 18' },
+    { id: 1, image: 'painting9.jpeg', title: 'Interior Painting' },
+    { id: 2, image: 'assembling2.jpeg', title: 'Furniture Assembly' },
+    { id: 3, image: 'assembling3.jpg', title: 'Furniture Assembly' },
+    { id: 4, image: 'assembling4.jpeg', title: 'Furniture Assembly' },
+    { id: 5, image: 'painting3.jpeg', title: 'Interior Painting' },
+    { id: 6, image: 'painting2.jpeg', title: 'Exterior Painting' },
+    { id: 7, image: 'painting5.jpeg', title: 'Interior Painting' },
+    { id: 8, image: 'roofing1.jpg', title: 'Roofing Repair' },
+    { id: 9, image: 'tiling1.jpeg', title: 'Tiling' },
+    { id: 10, image: 'assembling1.jpeg', title: 'Gate Installation' },
+    { id: 11, image: 'painting8.jpeg', title: 'Interior Painting' },
+    { id: 12, image: 'painting10.jpeg', title: 'Project Setup' },
   ];
 
   return (
@@ -53,10 +47,6 @@ export default function GallerySection() {
           ))}
         </div>
 
-        {/* Show more link */}
-        <p className="text-center text-sm text-gray-500 mt-8">
-          Showing 18 of 46 projects
-        </p>
       </div>
     </section>
   );

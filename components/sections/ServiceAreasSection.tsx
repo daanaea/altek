@@ -1,6 +1,7 @@
 'use client';
 
 import { cities } from '@/lib/cities-data';
+import OrangeCountyMap from '@/components/ui/OrangeCountyMap';
 
 export default function ServiceAreasSection() {
   return (
@@ -14,23 +15,14 @@ export default function ServiceAreasSection() {
           Serving all major cities in Orange County, California
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
           {/* Map */}
-          <div className="rounded-lg overflow-hidden border border-gray-200 h-[400px]">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424855.17634069386!2d-118.05390499999999!3d33.7174708!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dcd7d12b3b5e6b%3A0x2ef62f8418225cfa!2sOrange%20County%2C%20CA!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Orange County Service Area Map"
-            />
+          <div className="lg:col-span-8 rounded-lg overflow-hidden border border-gray-200 h-[400px]">
+            <OrangeCountyMap />
           </div>
 
           {/* Working Hours */}
-          <div className="bg-white rounded-lg border border-gray-200 p-8">
+          <div className="lg:col-span-4 bg-white rounded-lg border border-gray-200 p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-6">Working Hours</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -49,6 +41,15 @@ export default function ServiceAreasSection() {
                 <div className="flex-1">
                   <p className="font-medium text-gray-900">Phone</p>
                   <a href="tel:3412382682" className="text-primary hover:underline">(341) 238 26 82</a>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <div className="flex-1">
+                  <p className="font-medium text-gray-900">Email</p>
+                  <a href="mailto:info@altek-pro.com" className="text-primary hover:underline">info@altek-pro.com</a>
                 </div>
               </div>
               <div className="flex items-center gap-3">
