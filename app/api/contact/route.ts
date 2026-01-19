@@ -41,7 +41,10 @@ export async function POST(request: Request) {
     }
 
     if (sheetsResult.status === 'rejected') {
-      console.error('Sheets logging failed:', sheetsResult.reason);
+      const reason = sheetsResult.reason;
+      const errorMsg = reason instanceof Error ? reason.message : String(reason);
+      console.error('Sheets logging failed:', errorMsg);
+      console.error('Full sheets error:', reason);
     }
 
     // Return success if at least one email succeeded
