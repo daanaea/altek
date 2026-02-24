@@ -40,7 +40,7 @@ export default function ServiceAreasSection() {
                 </svg>
                 <div className="flex-1">
                   <p className="font-medium text-gray-900">Phone</p>
-                  <a href="tel:3412382682" className="text-primary hover:underline">(341) 238 26 82</a>
+                  <a href="tel:9493836108" className="text-primary hover:underline">(949) 383 6108</a>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -58,8 +58,8 @@ export default function ServiceAreasSection() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <div className="flex-1">
-                  <p className="font-medium text-gray-900">Service Area</p>
-                  <p className="text-gray-600">Orange County, CA</p>
+                  <p className="font-medium text-gray-900">Address</p>
+                  <p className="text-gray-600">1161 Quail Meadows, Irvine, CA 92603</p>
                 </div>
               </div>
             </div>
