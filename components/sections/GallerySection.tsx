@@ -17,6 +17,21 @@ export default function GallerySection() {
     { id: 10, image: 'assembling1.jpeg', title: 'Gate Installation' },
     { id: 11, image: 'painting8.jpeg', title: 'Interior Painting' },
     { id: 12, image: 'painting10.jpeg', title: 'Project Setup' },
+    { id: 13, image: 'й1.jpg', title: 'Exterior Painting' },
+    { id: 14, image: 'й2.jpg', title: 'Home Repair' },
+    { id: 15, image: 'й3.jpg', title: 'Interior Painting' },
+    { id: 16, image: 'й4.jpg', title: 'Interior Painting' },
+    { id: 17, image: 'й5.jpg', title: 'Interior Painting' },
+    { id: 18, image: 'й6.jpg', title: 'Plumbing Repair' },
+    { id: 19, image: 'ф1.jpg', title: 'Water Damage Repair' },
+    { id: 20, image: 'ф2.jpg', title: 'Water Damage Repair' },
+    { id: 21, image: 'ф3.jpg', title: 'Water Damage Repair' },
+    { id: 22, image: 'ф4.jpg', title: 'Water Damage Repair' },
+    { id: 23, image: 'ф5.jpeg', title: 'Interior Painting' },
+    { id: 24, image: 'ф6.jpeg', title: 'Interior Painting' },
+    { id: 25, image: 'ф7.jpeg', title: 'Interior Painting' },
+    { id: 26, image: 'ф8.jpeg', title: 'Interior Painting' },
+    { id: 27, image: 'WhatsApp Image 2026-03-10 at 10.55.54.jpeg', title: 'Equipment Assembly' },
   ];
 
   return (
