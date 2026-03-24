@@ -6,12 +6,12 @@ export default function GallerySection() {
   // Real project photos
   const galleryItems = [
     { id: 1, image: 'new1.jpg', title: 'Project Photo' },
-    { id: 2, image: 'new2.jpg', title: 'Project Photo' },
-    { id: 3, image: 'new3.jpg', title: 'Project Photo' },
-    { id: 4, image: 'new4.jpg', title: 'Project Photo' },
-    { id: 5, image: 'new5.jpg', title: 'Project Photo' },
-    { id: 6, image: 'new6.jpg', title: 'Project Photo' },
-    { id: 7, image: 'new7.jpg', title: 'Project Photo' },
+    { id: 2, image: 'new3.jpg', title: 'Project Photo' },
+    { id: 3, image: 'new4.jpg', title: 'Project Photo' },
+    { id: 4, image: 'new5.jpg', title: 'Project Photo' },
+    { id: 5, image: 'new6.jpg', title: 'Project Photo' },
+    { id: 6, image: 'new7.jpg', title: 'Project Photo' },
+    { id: 7, image: 'new2.jpg', title: 'Project Photo' },
     { id: 8, image: 'й1.jpg', title: 'Exterior Painting' },
     { id: 9, image: 'й4.jpg', title: 'Interior Painting' },
     { id: 10, image: 'й2.jpg', title: 'Home Repair' },
