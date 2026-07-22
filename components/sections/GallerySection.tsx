@@ -1,6 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import blobUrls from '@/lib/blob-urls.json';
+
+const urlMap = blobUrls as Record<string, string>;
+
+function getBlobUrl(localPath: string): string {
+  const key = `/images/gallery/${localPath}`;
+  return urlMap[key] || key;
+}
 
 export default function GallerySection() {
   // Real project photos
@@ -58,7 +66,7 @@ export default function GallerySection() {
               className="aspect-square bg-gray-100 rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300 transition-colors group relative"
             >
               <Image
-                src={`/images/gallery/${item.image}`}
+                src={getBlobUrl(item.image)}
                 alt={item.title}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"

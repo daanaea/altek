@@ -1,6 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import blobUrls from "@/lib/blob-urls.json";
+
+const urlMap = blobUrls as Record<string, string>;
+
+function getBlobUrl(localPath: string): string {
+  return urlMap[localPath] || localPath;
+}
 
 const services = [
   {
@@ -66,7 +73,7 @@ const services = [
     title: "Exterior Wood Repair & Restoration",
     description:
       "Damaged exterior wood repaired, restored and finished for lasting protection",
-    image: "/images/gallery/exterior-wood-repair-restoration/cover.png",
+    image: getBlobUrl("/images/gallery/exterior-wood-repair-restoration/cover.png"),
     alt: "Exterior wood repair and restoration",
     galleryHref: "/gallery/exterior-wood-repair-restoration",
     items: [

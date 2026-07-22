@@ -1,5 +1,4 @@
-import fs from "fs/promises";
-import path from "path";
+import blobUrls from "@/lib/blob-urls.json";
 
 export type GalleryCategoryMeta = {
   title: string;
@@ -21,13 +20,6 @@ export type GalleryCategory = {
   coverImage: string | null;
   images: string[];
 };
-
-const GALLERY_ROOT = path.join(
-  process.cwd(),
-  "public",
-  "images",
-  "gallery",
-);
 
 const categoryMeta: Record<string, GalleryCategoryMeta> = {
   "drywall-repair-patchwork": {
@@ -151,17 +143,10 @@ const categoryMeta: Record<string, GalleryCategoryMeta> = {
   },
 };
 
-const IMAGE_EXTENSIONS = [".webp", ".jpg", ".jpeg", ".png"];
-
-function isImageFile(fileName: string) {
-  const extension = path.extname(fileName).toLowerCase();
-
-  return IMAGE_EXTENSIONS.includes(extension);
-}
+const urlMap = blobUrls as Record<string, string>;
 
 function isCoverFile(fileName: string) {
-  const name = path.parse(fileName).name.toLowerCase();
-
+  const name = fileName.split("/").pop()?.split(".")[0]?.toLowerCase();
   return name === "cover";
 }
 
@@ -178,70 +163,62 @@ function fallbackTitleFromSlug(slug: string) {
 export async function getGalleryCategories(): Promise<
   GalleryCategory[]
 > {
-  const folderEntries = await fs.readdir(GALLERY_ROOT, {
-    withFileTypes: true,
+  // Extract unique slugs from URL keys
+  const slugSet = new Set<string>();
+  for (const key of Object.keys(urlMap)) {
+    // key format: /images/gallery/{slug}/{file}
+    const parts = key.split("/");
+    if (parts.length >= 4) {
+      slugSet.add(parts[3]);
+    }
+  }
+
+  const categories = Array.from(slugSet).map((slug) => {
+    // Get all URLs for this category
+    const prefix = `/images/gallery/${slug}/`;
+    const categoryUrls = Object.entries(urlMap)
+      .filter(([key]) => key.startsWith(prefix))
+      .map(([key, url]) => ({ key, url }));
+
+    // Find cover image
+    const coverEntry = categoryUrls.find(({ key }) => isCoverFile(key));
+    const coverImage = coverEntry?.url ?? null;
+
+    // Get all non-cover images, sorted
+    const images = categoryUrls
+      .filter(({ key }) => !isCoverFile(key))
+      .sort((a, b) =>
+        a.key.localeCompare(b.key, undefined, {
+          numeric: true,
+        }),
+      )
+      .map(({ url }) => url);
+
+    const meta = categoryMeta[slug];
+
+    return {
+      slug,
+      title: meta?.title ?? fallbackTitleFromSlug(slug),
+      description:
+        meta?.description ??
+        "Project gallery and completed work examples",
+      order: meta?.order ?? 999,
+      heroTitleLine1:
+        meta?.heroTitleLine1 ??
+        fallbackTitleFromSlug(slug),
+      heroTitleLine2: meta?.heroTitleLine2 ?? "",
+      heroSubtitle:
+        meta?.heroSubtitle ??
+        "Clean work. Professional results",
+      coverImage,
+      images,
+    };
   });
-
-  const folders = folderEntries.filter(
-    (entry) =>
-      entry.isDirectory() &&
-      entry.name !== "public" &&
-      !entry.name.startsWith("."),
-  );
-
-  const categories = await Promise.all(
-    folders.map(async (folder) => {
-      const slug = folder.name;
-      const folderPath = path.join(GALLERY_ROOT, slug);
-      const files = await fs.readdir(folderPath);
-
-      const imageFiles = files.filter(isImageFile);
-
-      const cover =
-        imageFiles.find(isCoverFile) ?? null;
-
-      const images = imageFiles
-        .filter((file) => !isCoverFile(file))
-        .sort((a, b) =>
-          a.localeCompare(b, undefined, {
-            numeric: true,
-          }),
-        );
-
-      const meta = categoryMeta[slug];
-
-      return {
-        slug,
-        title:
-          meta?.title ?? fallbackTitleFromSlug(slug),
-        description:
-          meta?.description ??
-          "Project gallery and completed work examples",
-        order: meta?.order ?? 999,
-        heroTitleLine1:
-          meta?.heroTitleLine1 ??
-          fallbackTitleFromSlug(slug),
-        heroTitleLine2:
-          meta?.heroTitleLine2 ?? "",
-        heroSubtitle:
-          meta?.heroSubtitle ??
-          "Clean work. Professional results",
-        coverImage: cover
-          ? `/images/gallery/${slug}/${cover}`
-          : null,
-        images: images.map(
-          (file) =>
-            `/images/gallery/${slug}/${file}`,
-        ),
-      };
-    }),
-  );
 
   return categories.sort((a, b) => {
     if (a.order !== b.order) {
       return a.order - b.order;
     }
-
     return a.title.localeCompare(b.title);
   });
 }
