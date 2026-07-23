@@ -145,91 +145,98 @@ const categoryMeta: Record<string, GalleryCategoryMeta> = {
 
 const urlMap = blobUrls as Record<string, string>;
 
-function isCoverFile(fileName: string) {
-  const name = fileName.split("/").pop()?.split(".")[0]?.toLowerCase();
-  return name === "cover";
+const supportedImageExtensions = [
+  ".webp",
+  ".avif",
+  ".jpg",
+  ".jpeg",
+  ".png",
+];
+
+function isSupportedImage(key: string) {
+  const normalizedKey = key.toLowerCase();
+
+  return supportedImageExtensions.some((extension) =>
+    normalizedKey.endsWith(extension),
+  );
 }
 
-function fallbackTitleFromSlug(slug: string) {
-  return slug
-    .split("-")
-    .map(
-      (word) =>
-        word.charAt(0).toUpperCase() + word.slice(1),
+function isCoverFile(key: string) {
+  const fileName = key.split("/").pop() ?? "";
+  const nameWithoutExtension =
+    fileName.slice(0, fileName.lastIndexOf(".")) || fileName;
+
+  return nameWithoutExtension.toLowerCase() === "cover";
+}
+
+function getCategoryEntries(slug: string) {
+  const prefix = `/images/gallery/${slug}/`;
+
+  return Object.entries(urlMap)
+    .filter(
+      ([key]) =>
+        key.startsWith(prefix) &&
+        isSupportedImage(key),
     )
-    .join(" ");
+    .map(([key, url]) => ({
+      key,
+      url,
+    }));
 }
 
 export async function getGalleryCategories(): Promise<
   GalleryCategory[]
 > {
-  // Extract unique slugs from URL keys
-  const slugSet = new Set<string>();
-  for (const key of Object.keys(urlMap)) {
-    // key format: /images/gallery/{slug}/{file}
-    const parts = key.split("/");
-    if (parts.length >= 4) {
-      slugSet.add(parts[3]);
-    }
-  }
+  const categories = Object.entries(categoryMeta)
+    .map(([slug, meta]) => {
+      const categoryEntries = getCategoryEntries(slug);
 
-  const categories = Array.from(slugSet).map((slug) => {
-    // Get all URLs for this category
-    const prefix = `/images/gallery/${slug}/`;
-    const categoryUrls = Object.entries(urlMap)
-      .filter(([key]) => key.startsWith(prefix))
-      .map(([key, url]) => ({ key, url }));
+      const coverEntry = categoryEntries.find(({ key }) =>
+        isCoverFile(key),
+      );
 
-    // Find cover image
-    const coverEntry = categoryUrls.find(({ key }) => isCoverFile(key));
-    const coverImage = coverEntry?.url ?? null;
+      const images = categoryEntries
+        .filter(({ key }) => !isCoverFile(key))
+        .sort((a, b) =>
+          a.key.localeCompare(b.key, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          }),
+        )
+        .map(({ url }) => url);
 
-    // Get all non-cover images, sorted
-    const images = categoryUrls
-      .filter(({ key }) => !isCoverFile(key))
-      .sort((a, b) =>
-        a.key.localeCompare(b.key, undefined, {
-          numeric: true,
-        }),
-      )
-      .map(({ url }) => url);
+      return {
+        slug,
+        title: meta.title,
+        description: meta.description,
+        order: meta.order,
+        heroTitleLine1: meta.heroTitleLine1,
+        heroTitleLine2: meta.heroTitleLine2,
+        heroSubtitle: meta.heroSubtitle,
+        coverImage: coverEntry?.url ?? null,
+        images,
+      };
+    })
+    .filter(
+      (category) =>
+        category.coverImage !== null ||
+        category.images.length > 0,
+    );
 
-    const meta = categoryMeta[slug];
-
-    return {
-      slug,
-      title: meta?.title ?? fallbackTitleFromSlug(slug),
-      description:
-        meta?.description ??
-        "Project gallery and completed work examples",
-      order: meta?.order ?? 999,
-      heroTitleLine1:
-        meta?.heroTitleLine1 ??
-        fallbackTitleFromSlug(slug),
-      heroTitleLine2: meta?.heroTitleLine2 ?? "",
-      heroSubtitle:
-        meta?.heroSubtitle ??
-        "Clean work. Professional results",
-      coverImage,
-      images,
-    };
-  });
-
-  return categories.sort((a, b) => {
-    if (a.order !== b.order) {
-      return a.order - b.order;
-    }
-    return a.title.localeCompare(b.title);
-  });
+  return categories.sort((a, b) => a.order - b.order);
 }
 
 export async function getGalleryCategoryBySlug(
   slug: string,
-) {
+): Promise<GalleryCategory | null> {
+  if (!Object.prototype.hasOwnProperty.call(categoryMeta, slug)) {
+    return null;
+  }
+
   const categories = await getGalleryCategories();
 
   return (
-    categories.find((item) => item.slug === slug) ??
+    categories.find((category) => category.slug === slug) ??
     null
   );
 }

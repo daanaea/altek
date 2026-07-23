@@ -100,12 +100,12 @@ const services = [
     ],
   },
   {
-    title: "Furniture Assembly & Installations",
+    title: "Furniture Assembly & Installation",
     description:
       "Careful furniture assembly and installation for homes and offices",
     image: "/images/services/furniture-assembly-installations.webp",
-    alt: "Furniture assembly and installations",
-    galleryHref: "/gallery/general-handyman-repairs",
+    alt: "Furniture assembly and installation",
+    galleryHref: "/gallery/furniture-assembly-installation",
     items: [
       "Bed assembly",
       "Cabinet assembly",
