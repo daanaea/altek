@@ -206,13 +206,13 @@ export default function ContactForm() {
       setCustomCity('');
       setUploadedPhotos([]);
 
-      if (typeof window !== 'undefined') {
+            if (typeof window !== 'undefined') {
         const gtag = (
           window as unknown as {
             gtag?: (
               command: string,
               eventName: string,
-              parameters?: Record<string, string>,
+              parameters?: Record<string, string | number>,
             ) => void;
           }
         ).gtag;
@@ -221,6 +221,12 @@ export default function ContactForm() {
           gtag('event', 'form_submission', {
             event_category: 'engagement',
             event_label: 'contact_form',
+          });
+
+          gtag('event', 'conversion', {
+            send_to: 'AW-17999843147/3ydGCKSfjqgcEMue_4ZD',
+            value: 1.0,
+            currency: 'USD',
           });
         }
       }
