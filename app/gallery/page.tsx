@@ -19,8 +19,8 @@ const shortDescriptions: Record<string, string> = {
   "Door Repair & Installation":
     "Door repair, adjustments and installation",
 
-  "Drywall Repair & Patchwork":
-    "Seamless drywall repairs and patchwork",
+  "Drywall Installation & Repair":
+    "Drywall installation, repairs and finishing",
 
   "Interior Painting":
     "Smooth, even interior painting",

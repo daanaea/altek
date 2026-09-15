@@ -23,13 +23,13 @@ export type GalleryCategory = {
 
 const categoryMeta: Record<string, GalleryCategoryMeta> = {
   "drywall-repair-patchwork": {
-    title: "Drywall Repair & Patchwork",
+    title: "Drywall Installation & Repair",
     description:
-      "Seamless wall and ceiling repairs with clean texture blending",
+      "Professional drywall installation, repairs, patching, ceiling work, taping, finishing and texture matching",
     order: 1,
-    heroTitleLine1: "Drywall Repair &",
-    heroTitleLine2: "Patchwork",
-    heroSubtitle: "Seamless repairs. Crisp walls",
+    heroTitleLine1: "Drywall Installation &",
+    heroTitleLine2: "Repair",
+    heroSubtitle: "Clean installs. Seamless repairs",
   },
 
   "interior-painting": {

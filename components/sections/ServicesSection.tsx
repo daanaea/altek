@@ -11,17 +11,18 @@ function getBlobUrl(localPath: string): string {
 
 const services = [
   {
-    title: "Drywall Repair & Patchwork",
-    description: "Clean drywall repairs, patching, and smooth wall finishing",
+    title: "Drywall Installation & Repair",
+    description:
+      "Professional drywall installation, repairs, patching, ceiling work, taping, finishing and texture matching",
     image: "/images/services/drywall-repair-patchwork.webp",
-    alt: "Drywall repair and patchwork",
+    alt: "Drywall installation and repair",
     galleryHref: "/gallery/drywall-repair-patchwork",
     items: [
-      "Wall patching",
-      "Ceiling repair",
-      "Texture matching",
-      "Crack repair",
-      "Smooth finishing",
+      "Drywall installation",
+      "Wall & ceiling repair",
+      "Patching & hole repair",
+      "Damaged drywall replacement",
+      "Taping, finishing & texture matching",
     ],
   },
   {
