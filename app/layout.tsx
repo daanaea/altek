@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Professional handyman services in Orange County, California. Licensed and insured. Drywall repair, painting, installations, home repairs and more.",
+    "Professional handyman services in Orange County, California. Drywall repair, painting, installations, home repairs and more.",
 
   keywords: [
     "handyman",

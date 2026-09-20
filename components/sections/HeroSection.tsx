@@ -145,48 +145,6 @@ export default function HeroSection() {
                 Request Service
               </button>
             </div>
-
-            {/* Mobile and tablet benefits */}
-            <div className="mt-8 max-w-[960px] border-y border-white/20 bg-black/[0.06] py-5.5 backdrop-blur-[2px] sm:mt-9 lg:hidden">
-              <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3 sm:gap-x-7">
-                <BenefitItem icon={<ShieldIcon />} text="Licensed" />
-
-                <BenefitItem
-                  icon={<CheckIcon />}
-                  text="Residential & Commercial"
-                  regular
-                />
-
-                <BenefitItem
-                  icon={<CheckIcon />}
-                  text="Clean, Professional Work"
-                  regular
-                />
-              </div>
-            </div>
-
-            {/* Desktop benefits */}
-            <div className="mt-8 hidden max-w-[1000px] overflow-hidden rounded-[24px] border border-white/[0.28] bg-white/[0.12] px-6 py-[18px] shadow-[0_18px_55px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.20)] backdrop-blur-xl lg:block">
-              <div className="grid grid-cols-3 items-center">
-                <DesktopBenefitItem
-                  icon={<ShieldIcon className="h-[22px] w-[22px]" />}
-                  text="Licensed"
-                />
-
-                <DesktopBenefitItem
-                  icon={<CheckIcon className="h-[22px] w-[22px]" />}
-                  text="Residential & Commercial"
-                  bordered
-                />
-
-                <DesktopBenefitItem
-                  icon={<CheckIcon className="h-[22px] w-[22px]" />}
-                  text="Clean, Professional Work"
-                  bordered
-                />
-              </div>
-            </div>
-
             {/* Information cards */}
             <div className="mt-8 grid max-w-[960px] grid-cols-2 gap-4 md:mt-10 md:grid-cols-4 md:gap-5 lg:max-w-[1000px] lg:gap-5 xl:gap-6">
               {/* Reviews */}
