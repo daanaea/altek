@@ -4,6 +4,7 @@ import { Inter, Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import PhoneClickTracking from "@/components/PhoneClickTracking";
 import "./globals.css";
 
 const inter = Inter({
@@ -118,6 +119,8 @@ export default function RootLayout({
             gtag('config', 'AW-17999843147');
           `}
         </Script>
+
+        <PhoneClickTracking />
 
         <Header />
 
