@@ -2,7 +2,7 @@
 
 [v0] Minimal working website for Yelp registration.
 
-In future:
+[v1] Updated. Added Vercel Pro sub.
 - gallery, link reviews from Google Maps
 - set up Google Ads
 
