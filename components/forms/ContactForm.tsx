@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { track } from '@vercel/analytics';
 import { contactSchema, type ContactFormData } from '@/lib/validation';
 import { cities } from '@/lib/cities-data';
 import Button from '@/components/ui/Button';
@@ -201,12 +202,14 @@ export default function ContactForm() {
 
       setStatus('success');
 
+      track('request_job_submit');
+
       reset();
       setSelectedCity('');
       setCustomCity('');
       setUploadedPhotos([]);
 
-            if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined') {
         const gtag = (
           window as unknown as {
             gtag?: (

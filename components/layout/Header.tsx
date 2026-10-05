@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 
 export default function Header() {
   const pathname = usePathname();
@@ -60,6 +61,7 @@ export default function Header() {
 
             <a
               href="tel:+19493836108"
+              onClick={() => track("call_click", { location: "header" })}
               className="rounded-2xl border border-slate-300 px-5 py-2.5 text-lg font-semibold text-slate-800 transition hover:bg-slate-50"
             >
               (949) 383 6108
@@ -67,7 +69,10 @@ export default function Header() {
 
             <button
               type="button"
-              onClick={() => goToSection("contact")}
+              onClick={() => {
+                track("request_job_click", { location: "header" });
+                goToSection("contact");
+              }}
               className="rounded-2xl bg-slate-950 px-6 py-2.5 text-lg font-semibold text-white transition hover:bg-slate-800"
             >
               Request a Job
@@ -85,7 +90,10 @@ export default function Header() {
 
             <button
               type="button"
-              onClick={() => goToSection("contact")}
+              onClick={() => {
+                track("request_job_click", { location: "header" });
+                goToSection("contact");
+              }}
               className="whitespace-nowrap rounded-lg bg-slate-950 px-2.5 py-2 text-[13px] font-semibold text-white transition hover:bg-slate-800 min-[390px]:px-3 min-[390px]:text-sm"
             >
               Request a Job
