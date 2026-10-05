@@ -4,6 +4,7 @@ import { getImageProps } from "next/image";
 import type { ReactNode } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { SiYelp } from "react-icons/si";
+import { track } from "@vercel/analytics";
 
 export default function HeroSection() {
   const scrollToContact = () => {
@@ -132,6 +133,7 @@ export default function HeroSection() {
             <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
               <a
                 href="tel:+19493836108"
+                onClick={() => track("call_click", { location: "hero" })}
                 className="inline-flex w-full items-center justify-center rounded-2xl border border-orange-400/40 bg-[#F97316] px-8 py-3 text-[17px] font-semibold text-white shadow-[0_12px_30px_rgba(249,115,22,0.28)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#EA580C] hover:shadow-[0_16px_36px_rgba(234,88,12,0.34)] sm:w-auto sm:min-w-[150px] sm:px-9 sm:py-3.5 sm:text-lg"
               >
                 Call Now
@@ -139,7 +141,10 @@ export default function HeroSection() {
 
               <button
                 type="button"
-                onClick={scrollToContact}
+                onClick={() => {
+                  track("request_job_click", { location: "hero" });
+                  scrollToContact();
+                }}
                 className="inline-flex w-full items-center justify-center rounded-2xl border border-white/10 bg-[#0F2F5F] px-8 py-3 text-[17px] font-semibold text-white shadow-[0_12px_30px_rgba(3,16,38,0.30)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#0B254A] hover:shadow-[0_16px_38px_rgba(3,16,38,0.38)] sm:w-auto sm:min-w-[210px] sm:px-9 sm:py-3.5 sm:text-lg"
               >
                 Request Service

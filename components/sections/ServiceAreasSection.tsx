@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 
 const serviceBenefits = [
   {
@@ -173,6 +174,7 @@ export default function ServiceAreasSection() {
                   <a
                     href="tel:+19493836108"
                     aria-label="Call or text Altek Pro at 949-383-6108"
+                    onClick={() => track("call_click", { location: "service_area" })}
                     className="inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl bg-orange-500 px-6 py-3 text-base font-bold text-white shadow-[0_12px_26px_rgba(249,115,22,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-[0_16px_32px_rgba(249,115,22,0.34)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071a34] sm:w-auto"
                   >
                     <PhoneIcon small />
@@ -181,7 +183,10 @@ export default function ServiceAreasSection() {
 
                   <button
                     type="button"
-                    onClick={scrollToContact}
+                    onClick={() => {
+                      track("request_job_click", { location: "service_area" });
+                      scrollToContact();
+                    }}
                     className="inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-6 py-3 text-base font-bold text-white backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071a34] sm:w-auto"
                   >
                     Get a Free Estimate
@@ -352,6 +357,11 @@ export default function ServiceAreasSection() {
                   <a
                     key={item.title}
                     href={item.href}
+                    onClick={
+                      item.href.startsWith("tel:")
+                        ? () => track("call_click", { location: "contact" })
+                        : undefined
+                    }
                     className={itemClassName}
                   >
                     {content}

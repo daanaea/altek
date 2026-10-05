@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter, Montserrat } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PhoneClickTracking from "@/components/PhoneClickTracking";
@@ -20,7 +20,11 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://altek-pro.com"),
+  metadataBase: new URL("https://www.altek-pro.com"),
+
+  verification: {
+    google: "S-lgJhPVAehCKNsvGnfFqC3yR8FYLzsErtW-gQX7XrY",
+  },
 
   title: {
     default: "Altek Pro LLC | Local Handyman in Orange County, CA",
