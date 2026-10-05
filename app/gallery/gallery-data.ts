@@ -143,6 +143,8 @@ const categoryMeta: Record<string, GalleryCategoryMeta> = {
   },
 };
 
+export const galleryCategorySlugs = Object.keys(categoryMeta);
+
 const urlMap = blobUrls as Record<string, string>;
 
 const supportedImageExtensions = [

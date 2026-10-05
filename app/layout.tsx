@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter, Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SITE_URL } from "@/lib/constants";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PhoneClickTracking from "@/components/PhoneClickTracking";
@@ -20,7 +21,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.altek-pro.com"),
+  metadataBase: new URL(SITE_URL),
 
   verification: {
     google: "S-lgJhPVAehCKNsvGnfFqC3yR8FYLzsErtW-gQX7XrY",
