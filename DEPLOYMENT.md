@@ -48,7 +48,7 @@ The development server is currently running at: **.,**
 
 #### B. Resend Email Setup
 1. Sign up at [Resend](https://resend.com)
-2. Add your domain (e.g., altekpro.com)
+2. Add your domain (e.g., altek-pro.com)
 3. Add DNS records for email verification:
    - SPF record
    - DKIM record
@@ -78,8 +78,8 @@ In Vercel dashboard, add these environment variables:
 
 ```
 RESEND_API_KEY=re_xxxxx
-EMAIL_FROM=noreply@altekpro.com
-EMAIL_TO=owner@altekpro.com
+EMAIL_FROM=noreply@altek-pro.com
+EMAIL_TO=owner@altek-pro.com
 GOOGLE_SHEETS_CLIENT_EMAIL=your-service-account@project.iam.gserviceaccount.com
 GOOGLE_SHEETS_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
 GOOGLE_SHEET_ID=1abc123xyz
@@ -97,7 +97,7 @@ Click "Deploy" and wait for the build to complete (2-3 minutes)
 ### 3. Custom Domain Setup
 
 1. In Vercel dashboard, go to your project → Settings → Domains
-2. Add your domain (e.g., `altekpro.com` and `www.altekpro.com`)
+2. Add your domain (e.g., `altek-pro.com` and `www.altek-pro.com`)
 3. Update DNS records at your domain registrar:
    - **A Record**: `@` → `76.76.21.21`
    - **CNAME**: `www` → `cname.vercel-dns.com`
