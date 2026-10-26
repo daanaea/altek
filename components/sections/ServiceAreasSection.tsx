@@ -257,11 +257,11 @@ export default function ServiceAreasSection() {
 
                   <span className="hidden min-w-0 flex-1 sm:block">
                     <span className="block text-sm font-bold text-slate-900">
-                      Don't see your city?
+                      Don&apos;t see your city?
                     </span>
 
                     <span className="mt-0.5 block text-sm leading-5 text-slate-600">
-                      Request a job and select "Other (not listed)"
+                      Request a job and select &quot;Other (not listed)&quot;
                     </span>
                   </span>
 

@@ -681,11 +681,11 @@ export default function ContactForm() {
 
             <div>
               <p className="font-semibold text-emerald-900">
-                Got it! We'll reply within 24 hours.
+                Got it! We&apos;ll reply within 24 hours.
               </p>
 
               <p className="mt-1 text-sm text-emerald-700">
-                Check your email for a confirmation. We'll be in touch soon!
+                Check your email for a confirmation. We&apos;ll be in touch soon!
               </p>
             </div>
           </div>
