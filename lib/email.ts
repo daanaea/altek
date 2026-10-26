@@ -34,6 +34,7 @@ export async function sendConfirmationEmail(data: ContactFormData) {
   const name = escapeHtml(data.name);
   const email = data.email;
   const city = escapeHtml(data.city);
+  const serviceType = escapeHtml(data.serviceType);
   const description = escapeHtml(data.description).replaceAll(
     '\n',
     '<br />',
@@ -121,10 +122,11 @@ export async function sendConfirmationEmail(data: ContactFormData) {
           <div class="message">
             <p style="margin-top: 0;">
               Thank you for contacting <strong>Altek Pro</strong>.
+              We'll reply within 24 hours.
             </p>
 
             <p>
-              We received your service request for
+              We received your <strong>${serviceType}</strong> request for
               <strong>${city}</strong>.
             </p>
 
@@ -140,7 +142,7 @@ export async function sendConfirmationEmail(data: ContactFormData) {
             </p>
 
             <p style="margin-bottom: 0;">
-              We will review your project details and contact you soon
+              We will review your project details and contact you within 24 hours
               to discuss the work and provide an estimate.
             </p>
           </div>
@@ -216,6 +218,7 @@ export async function sendContactEmail(data: ContactFormData) {
   const phone = escapeHtml(data.phone);
   const email = data.email;
   const city = escapeHtml(data.city);
+  const serviceType = escapeHtml(data.serviceType);
   const description = escapeHtml(data.description).replaceAll(
     '\n',
     '<br />',
@@ -370,6 +373,11 @@ export async function sendContactEmail(data: ContactFormData) {
           </div>
 
           <div class="field">
+            <div class="label">Service type</div>
+            <div class="value">${serviceType}</div>
+          </div>
+
+          <div class="field">
             <div class="label">Project description</div>
             <div class="value">${description}</div>
           </div>
@@ -391,7 +399,7 @@ export async function sendContactEmail(data: ContactFormData) {
     const { data: result, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to: OWNER_EMAIL,
-      subject: `New job request from ${name} — ${city}`,
+      subject: `New ${serviceType} request from ${name} — ${city}`,
       html: emailHtml,
       replyTo: email,
     });

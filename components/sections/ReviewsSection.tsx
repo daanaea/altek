@@ -1,61 +1,20 @@
-"use client";
-
+import { getGoogleReviews, GoogleReview } from "@/lib/google-places";
 import { FcGoogle } from "react-icons/fc";
 import { SiYelp } from "react-icons/si";
-import StarRating from "@/components/ui/StarRating";
+import ReviewCard from "@/components/ui/ReviewCard";
 
-const reviews = [
-  {
-    id: 1,
-    name: "Sarah Mitchell",
-    rating: 5,
-    text: "Altek Pro completed several projects around our home, including drywall repair, interior painting and backyard fence repair. Very skilled, professional and fairly priced.",
-    service: "Drywall, Painting & Fence Repair",
-    source: "Google",
-  },
-  {
-    id: 2,
-    name: "C. Edward Buffington",
-    rating: 5,
-    text: "Exceptional communication, quality workmanship and fair pricing. After using many handyman services over the years, Altek Pro truly stands out.",
-    service: "Home Repairs & Improvements",
-    source: "Google",
-  },
-  {
-    id: 3,
-    name: "Vivian Lutz Becker",
-    rating: 5,
-    text: "Knowledgeable, honest and professional. The work was clean, carefully completed and fairly priced, with every step clearly explained.",
-    service: "General Handyman",
-    source: "Google",
-  },
-  {
-    id: 4,
-    name: "Rohit J.",
-    rating: 5,
-    text: "Our home gym project included storage removal, mirrors, flooring, equipment assembly and lighting. Scheduling was easy, communication was excellent and the expanded scope was handled professionally.",
-    service: "Complex Home Gym Installation",
-    source: "Yelp",
-  },
-  {
-    id: 5,
-    name: "Michael D.",
-    rating: 5,
-    text: "Arrived on time and completed a challenging project with precision and excellent workmanship. Professional, courteous, well equipped and careful with cleanup.",
-    service: "Complex Handyman Project",
-    source: "Yelp",
-  },
-  {
-    id: 6,
-    name: "Regina S.",
-    rating: 5,
-    text: "Quick response, clear pricing and accurate custom work. Our bar stools were shortened neatly and additional outdoor fixtures were installed efficiently.",
-    service: "Custom Repairs & Installation",
-    source: "Yelp",
-  },
-];
+const YELP_URL = "https://www.yelp.com/biz/altek-pro-irvine";
 
-export default function ReviewsSection() {
+export default async function ReviewsSection() {
+  const placeDetails = await getGoogleReviews();
+
+  // If API fails, show fallback with just rating badge and links
+  if (!placeDetails) {
+    return <ReviewsFallback />;
+  }
+
+  const { rating, userRatingCount, reviews, googleMapsUri } = placeDetails;
+
   return (
     <section
       id="reviews"
@@ -68,149 +27,86 @@ export default function ReviewsSection() {
             Customer Reviews
           </h2>
 
-          {/* Rating and review platforms */}
-          <div className="mt-2.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+          {/* Rating */}
+          <div className="mt-2.5 flex items-center justify-center gap-1.5">
             <span
               className="text-[19px] leading-none tracking-[0.08em] text-amber-400 sm:text-[20px]"
-              aria-label="Five-star customer reviews"
+              aria-label={`${rating} star rating`}
             >
-              ★★★★★
+              {renderStars(rating)}
             </span>
+            <span className="text-sm font-medium text-slate-600">
+              {rating.toFixed(1)} ({userRatingCount} reviews)
+            </span>
+          </div>
 
+          {/* Review platform pills */}
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
             <a
-              href="https://share.google/pKDJh3REZerDGaR6T"
+              href={googleMapsUri}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 text-[15px] font-semibold text-slate-700 transition hover:text-slate-950"
-              aria-label="View Altek Pro reviews on Google"
+              className="group inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-[14px] font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:shadow-md"
+              aria-label="View all Altek Pro reviews on Google"
             >
               <FcGoogle
-                className="h-5 w-5 transition duration-200 group-hover:scale-105"
+                className="h-5 w-5 transition duration-200 group-hover:scale-110"
                 aria-hidden="true"
               />
-              <span>Google</span>
+              <span>Google Reviews</span>
             </a>
 
-            <span className="text-sm text-slate-300" aria-hidden="true">
-              •
-            </span>
-
             <a
-              href="https://www.yelp.com/biz/altek-pro-irvine"
+              href={YELP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 text-[15px] font-semibold text-slate-700 transition hover:text-slate-950"
+              className="group inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-[14px] font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:shadow-md"
               aria-label="View Altek Pro reviews on Yelp"
             >
               <SiYelp
-                className="h-5 w-5 text-[#D32323] transition duration-200 group-hover:scale-105"
+                className="h-5 w-5 text-[#D32323] transition duration-200 group-hover:scale-110"
                 aria-hidden="true"
               />
-              <span>Yelp</span>
+              <span>Yelp Reviews</span>
             </a>
           </div>
         </div>
 
-        {/* Mobile carousel / desktop grid */}
+        {/* Reviews carousel */}
         <div
           className="
             -mx-4 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3
             scroll-smooth
-            [scrollbar-width:none]
-            [&::-webkit-scrollbar]:hidden
-            sm:mx-0
-            sm:grid
-            sm:grid-cols-2
-            sm:gap-5
-            sm:overflow-visible
-            sm:px-0
-            sm:pb-0
-            sm:snap-none
-            lg:grid-cols-3
-            lg:gap-6
+            sm:-mx-5 sm:gap-5 sm:px-5
+            lg:-mx-6 lg:gap-6 lg:px-6
           "
         >
-          {reviews.map((review) => (
-            <article
-              key={review.id}
-              className="
-                group
-                relative
-                flex
-                min-w-[86%]
-                snap-center
-                flex-col
-                overflow-hidden
-                rounded-[22px]
-                border
-                border-slate-200
-                bg-white
-                px-5
-                py-5
-                shadow-sm
-                transition
-                duration-300
-                active:scale-[0.99]
-                sm:min-w-0
-                sm:snap-none
-                sm:hover:-translate-y-1
-                sm:hover:border-slate-300
-                sm:hover:shadow-lg
-              "
-            >
-              {/* Brand accent */}
-              <div className="absolute inset-x-0 top-0 h-1 bg-orange-500" />
-
-              {/* Rating and source */}
-              <div className="relative z-10 flex items-center justify-between gap-3">
-                <StarRating rating={review.rating} size="sm" />
-
-                <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-slate-400">
-                  {review.source === "Google" ? (
-                    <FcGoogle
-                      className="h-[15px] w-[15px]"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <SiYelp
-                      className="h-[15px] w-[15px] text-[#D32323]"
-                      aria-hidden="true"
-                    />
-                  )}
-
-                  <span>{review.source}</span>
-                </span>
-              </div>
-
-              {/* Review text */}
-              <p className="relative z-10 mt-3.5 flex-1 text-[15px] leading-[1.55] text-slate-700">
-                {review.text}
-              </p>
-
-              {/* Customer details */}
-              <div className="relative z-10 mt-4 border-t border-slate-200 pt-3.5">
-                <p className="text-base font-semibold leading-tight text-slate-900">
-                  {review.name}
-                </p>
-
-                <p className="mt-1 text-[13px] leading-5 text-slate-500">
-                  {review.service}
-                </p>
-              </div>
-            </article>
+          {reviews.slice(0, 6).map((review, index) => (
+            <ReviewCard key={index} review={review} googleMapsUri={googleMapsUri} />
           ))}
         </div>
 
         {/* Mobile swipe indicator */}
         <div className="mt-1 flex items-center justify-center gap-2 sm:hidden">
-          <span className="h-1.5 w-5 rounded-full bg-orange-500" />
-          <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
-          <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
-          <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
+          {reviews.slice(0, 6).map((_, index) => (
+            <span
+              key={index}
+              className={`h-1.5 rounded-full ${
+                index === 0 ? "w-5 bg-orange-500" : "w-1.5 bg-slate-300"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Google attribution */}
+        <div className="mt-6 text-center">
+          <p className="text-xs text-slate-400">
+            Reviews powered by Google
+          </p>
         </div>
 
         {/* Closing line */}
-        <div className="mt-4 text-center sm:mt-6">
+        <div className="mt-2 text-center sm:mt-4">
           <p className="text-sm font-semibold tracking-wide text-slate-600">
             <span>Complex projects. Professional results.</span>
 
@@ -227,4 +123,80 @@ export default function ReviewsSection() {
       </div>
     </section>
   );
+}
+
+// Fallback component when API fails
+function ReviewsFallback() {
+  return (
+    <section
+      id="reviews"
+      className="bg-gray-50 px-4 pb-10 pt-6 sm:px-5 sm:pb-12 sm:pt-8 lg:px-6 lg:pb-10 lg:pt-8"
+    >
+      <div className="mx-auto max-w-6xl">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-[44px]">
+            Customer Reviews
+          </h2>
+
+          {/* Rating badge and links only */}
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
+            <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm">
+              <span
+                className="text-lg leading-none tracking-[0.08em] text-amber-400"
+                aria-label="Five-star rating"
+              >
+                ★★★★★
+              </span>
+              <span className="text-sm font-semibold text-slate-700">
+                5.0 Rating
+              </span>
+            </div>
+
+            <a
+              href="https://share.google/pKDJh3REZerDGaR6T"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[15px] font-semibold text-slate-700 shadow-sm transition hover:shadow-md"
+              aria-label="View Altek Pro reviews on Google"
+            >
+              <FcGoogle
+                className="h-5 w-5 transition duration-200 group-hover:scale-105"
+                aria-hidden="true"
+              />
+              <span>Google Reviews</span>
+            </a>
+
+            <a
+              href={YELP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[15px] font-semibold text-slate-700 shadow-sm transition hover:shadow-md"
+              aria-label="View Altek Pro reviews on Yelp"
+            >
+              <SiYelp
+                className="h-5 w-5 text-[#D32323] transition duration-200 group-hover:scale-105"
+                aria-hidden="true"
+              />
+              <span>Yelp Reviews</span>
+            </a>
+          </div>
+
+          <p className="mt-6 text-sm text-slate-500">
+            Read our customer reviews on Google and Yelp
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Helper to render stars based on rating
+function renderStars(rating: number): string {
+  const fullStars = Math.floor(rating);
+  const hasHalf = rating - fullStars >= 0.5;
+  let stars = "★".repeat(fullStars);
+  if (hasHalf && fullStars < 5) {
+    stars += "☆";
+  }
+  return stars.padEnd(5, "☆");
 }

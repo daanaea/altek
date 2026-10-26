@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { track } from "@vercel/analytics";
 
 const serviceBenefits = [
@@ -62,14 +61,14 @@ const contactItems = [
   },
   {
     title: "Hours",
-    value: "Mon–Sun, 8 AM–8 PM",
+    value: "Mon-Sun, 8 AM-8 PM",
     href: null,
     icon: <ClockIcon />,
   },
 ];
 
 export default function ServiceAreasSection() {
-  const [showAllCities, setShowAllCities] = useState(false);
+  const allCities = [...featuredCities, ...additionalCities];
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
@@ -226,10 +225,10 @@ export default function ServiceAreasSection() {
                   </div>
                 </div>
 
-                {/* Featured cities */}
+                {/* All cities */}
                 <div className="mt-5 rounded-[22px] border border-white/80 bg-white/85 p-4 shadow-[0_14px_38px_rgba(15,23,42,0.08)] backdrop-blur-md sm:rounded-[24px] sm:p-5">
                   <div className="grid grid-cols-2 gap-x-3 gap-y-2.5 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-2 xl:grid-cols-3">
-                    {featuredCities.map((city) => (
+                    {allCities.map((city) => (
                       <div
                         key={city}
                         className="flex min-w-0 items-start gap-2 text-[14px] font-semibold text-slate-700 sm:text-sm"
@@ -240,47 +239,6 @@ export default function ServiceAreasSection() {
                       </div>
                     ))}
                   </div>
-
-                  {/* Expanded cities */}
-                  <div
-                    className={[
-                      "grid overflow-hidden transition-all duration-300",
-                      showAllCities
-                        ? "mt-4 max-h-[500px] border-t border-slate-200 pt-4 opacity-100"
-                        : "max-h-0 opacity-0",
-                    ].join(" ")}
-                  >
-                    <div className="grid grid-cols-2 gap-x-3 gap-y-2.5 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-2 xl:grid-cols-3">
-                      {additionalCities.map((city) => (
-                        <div
-                          key={city}
-                          className="flex min-w-0 items-start gap-2 text-[14px] font-medium text-slate-600 sm:text-sm"
-                        >
-                          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300" />
-
-                          <span className="leading-5">{city}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => setShowAllCities((current) => !current)}
-                    aria-expanded={showAllCities}
-                    className="group mt-4 inline-flex items-center gap-2 text-sm font-bold text-orange-600 transition hover:text-orange-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2"
-                  >
-                    {showAllCities ? "Show fewer cities" : "View all cities"}
-
-                    <span
-                      className={[
-                        "transition-transform duration-300",
-                        showAllCities ? "rotate-180" : "",
-                      ].join(" ")}
-                    >
-                      <ChevronIcon />
-                    </span>
-                  </button>
                 </div>
 
                 {/* Availability action */}
@@ -294,16 +252,16 @@ export default function ServiceAreasSection() {
                   </span>
 
                   <span className="min-w-0 flex-1 text-sm font-bold leading-5 text-slate-900 sm:hidden">
-                    Don’t see your city? Check availability
+                    Not listed? Request a job below
                   </span>
 
                   <span className="hidden min-w-0 flex-1 sm:block">
                     <span className="block text-sm font-bold text-slate-900">
-                      Don’t see your city?
+                      Don't see your city?
                     </span>
 
                     <span className="mt-0.5 block text-sm leading-5 text-slate-600">
-                      Check availability for your area
+                      Request a job and select "Other (not listed)"
                     </span>
                   </span>
 
