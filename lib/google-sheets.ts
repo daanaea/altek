@@ -3,7 +3,7 @@ import { JWT } from 'google-auth-library';
 import { ContactFormData } from './validation';
 
 export async function appendToGoogleSheet(data: ContactFormData) {
-  const { name, phone, email, city, description } = data;
+  const { name, phone, email, city, serviceType, description } = data;
 
   // Validate environment variables
   const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
@@ -36,7 +36,7 @@ export async function appendToGoogleSheet(data: ContactFormData) {
     // Append row to spreadsheet
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: 'Sheet1!A:F',
+      range: 'Sheet1!A:G',
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [
@@ -46,6 +46,7 @@ export async function appendToGoogleSheet(data: ContactFormData) {
             phone,
             email,
             city,
+            serviceType,
             description,
           ],
         ],

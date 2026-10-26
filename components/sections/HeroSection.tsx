@@ -106,12 +106,12 @@ export default function HeroSection() {
             </h1>
 
             {/* Mobile and tablet tagline */}
-            <p className="mt-5 text-[23px] font-medium leading-tight tracking-[-0.015em] text-white/95 sm:mt-6 sm:text-[29px] lg:hidden">
+            <p className="mt-5 font-montserrat text-[23px] font-medium leading-tight tracking-[-0.015em] text-white/95 sm:mt-6 sm:text-[29px] lg:hidden">
               Reliable. Skilled. Local
             </p>
 
             {/* Desktop tagline */}
-            <div className="mt-6 hidden items-center gap-3.5 text-[30px] font-medium leading-tight tracking-[-0.018em] text-white/95 lg:flex">
+            <div className="mt-6 hidden items-center gap-3.5 font-montserrat text-[30px] font-medium leading-tight tracking-[-0.018em] text-white/95 lg:flex">
               <span>Reliable</span>
 
               <span
@@ -153,10 +153,10 @@ export default function HeroSection() {
             {/* Information cards */}
             <div className="mt-8 grid max-w-[960px] grid-cols-2 gap-4 md:mt-10 md:grid-cols-4 md:gap-5 lg:max-w-[1000px] lg:gap-5 xl:gap-6">
               {/* Reviews */}
-              <div className="group relative flex min-h-[196px] flex-col items-center justify-center overflow-hidden rounded-[25px] border border-white/[0.38] bg-white/[0.17] px-4 py-5 text-center shadow-[0_18px_48px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.24)] backdrop-blur-xl transition duration-300 md:min-h-[208px] md:px-5 lg:min-h-[188px] lg:bg-white/[0.22] lg:hover:-translate-y-1.5 lg:hover:border-white/[0.48] lg:hover:bg-white/[0.27] lg:hover:shadow-[0_24px_60px_rgba(0,0,0,0.30),inset_0_1px_0_rgba(255,255,255,0.28)]">
+              <div className="relative flex min-h-[196px] flex-col items-center justify-center overflow-hidden rounded-[25px] border border-white/[0.38] bg-white/[0.17] px-4 py-5 text-center shadow-[0_18px_48px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.24)] backdrop-blur-xl md:min-h-[208px] md:px-5 lg:min-h-[188px] lg:bg-white/[0.22]">
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/[0.10] to-transparent" />
 
-                <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-orange-400/[0.10] blur-3xl transition duration-300 lg:group-hover:bg-orange-400/[0.16]" />
+                <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-orange-400/[0.10] blur-3xl" />
 
                 {/* Mobile */}
                 <div className="relative z-10 flex flex-col items-center justify-center md:hidden">
@@ -175,7 +175,7 @@ export default function HeroSection() {
                     <span>★</span>
                   </div>
 
-                  <div className="mt-5 flex flex-col items-center justify-center gap-3">
+                  <div className="mt-6 flex flex-col items-center justify-center gap-3">
                     <GoogleLink />
                     <YelpLink />
                   </div>
@@ -198,7 +198,7 @@ export default function HeroSection() {
                     5-Star Reviews
                   </p>
 
-                  <div className="mt-4.5 flex items-center justify-center gap-4">
+                  <div className="mt-5 flex items-center justify-center gap-4">
                     <GoogleLink />
                     <YelpLink />
                   </div>
@@ -339,7 +339,7 @@ type InfoCardProps = {
 
 function InfoCard({ children }: InfoCardProps) {
   return (
-    <div className="group relative flex h-full min-h-[190px] flex-col items-center justify-center overflow-hidden rounded-[24px] border border-white/[0.26] bg-white/[0.10] px-4 py-5 text-center shadow-[0_14px_38px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-lg transition duration-300 md:min-h-[208px] md:px-5 lg:min-h-[188px] lg:bg-white/[0.15] lg:backdrop-blur-xl lg:hover:-translate-y-1 lg:hover:border-white/[0.36] lg:hover:bg-white/[0.20] lg:hover:shadow-[0_20px_50px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.20)]">
+    <div className="relative flex h-full min-h-[190px] flex-col items-center justify-center overflow-hidden rounded-[24px] border border-white/[0.26] bg-white/[0.10] px-4 py-5 text-center shadow-[0_14px_38px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-lg md:min-h-[208px] md:px-5 lg:min-h-[188px] lg:bg-white/[0.15] lg:backdrop-blur-xl">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-white/[0.07] to-transparent" />
 
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center">
@@ -381,15 +381,15 @@ function GoogleLink() {
       href="https://share.google/pKDJh3REZerDGaR6T"
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex items-center justify-center gap-2 text-white transition duration-200 hover:text-white/80"
-      aria-label="Open Altek Pro on Google"
+      className="group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 shadow-sm transition duration-200 hover:border-slate-300 hover:shadow-md"
+      aria-label="Google Reviews"
     >
       <FcGoogle
-        className="h-8 w-8 shrink-0 transition duration-200 group-hover:scale-110"
+        className="h-5 w-5 shrink-0 transition duration-200 group-hover:scale-110"
         aria-hidden="true"
       />
 
-      <span className="text-[16px] font-semibold">Google</span>
+      <span className="text-[13px] font-semibold text-slate-700">Google</span>
     </a>
   );
 }
@@ -400,15 +400,15 @@ function YelpLink() {
       href="https://www.yelp.com/biz/altek-pro-irvine"
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex items-center justify-center gap-2 text-white transition duration-200 hover:text-white/80"
-      aria-label="Open Altek Pro on Yelp"
+      className="group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 shadow-sm transition duration-200 hover:border-slate-300 hover:shadow-md"
+      aria-label="Yelp Reviews"
     >
       <SiYelp
-        className="h-8 w-8 shrink-0 text-[#D32323] transition duration-200 group-hover:scale-110"
+        className="h-5 w-5 shrink-0 text-[#D32323] transition duration-200 group-hover:scale-110"
         aria-hidden="true"
       />
 
-      <span className="text-[16px] font-semibold">Yelp</span>
+      <span className="text-[13px] font-semibold text-slate-700">Yelp</span>
     </a>
   );
 }

@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { track } from '@vercel/analytics';
-import { contactSchema, type ContactFormData } from '@/lib/validation';
+import { contactSchema, serviceTypes, type ContactFormData } from '@/lib/validation';
 import { cities } from '@/lib/cities-data';
 import Button from '@/components/ui/Button';
 
-const OTHER_CITY_VALUE = 'Other / Not listed';
+const OTHER_CITY_VALUE = 'Other (not listed)';
 const MAX_PHOTOS = 5;
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
@@ -38,6 +38,7 @@ export default function ContactForm() {
       phone: '',
       email: '',
       city: '',
+      serviceType: '',
       description: '',
     },
   });
@@ -352,26 +353,111 @@ export default function ContactForm() {
         </label>
 
         <div className="relative">
-          <select
-            id="city-select"
-            value={selectedCity}
-            onChange={handleCityChange}
-            className={`${fieldClassName(
-              Boolean(errors.city),
-            )} cursor-pointer appearance-none pr-12`}
-            aria-invalid={Boolean(errors.city)}
-          >
-            <option value="">Select your city</option>
+          {selectedCity === OTHER_CITY_VALUE ? (
+            <div className="flex items-center gap-2">
+              <span className="shrink-0 text-sm font-medium text-slate-600">
+                Other:
+              </span>
+              <input
+                id="custom-city"
+                type="text"
+                value={customCity}
+                onChange={handleCustomCityChange}
+                autoComplete="address-level2"
+                autoFocus
+                className={`${fieldClassName(
+                  Boolean(errors.city) || Boolean(errorMessage),
+                )} flex-1`}
+                placeholder="Enter your city"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedCity('');
+                  setCustomCity('');
+                  setValue('city', '', { shouldValidate: false });
+                }}
+                className="shrink-0 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+                aria-label="Clear selection"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          ) : (
+            <>
+              <select
+                id="city-select"
+                value={selectedCity}
+                onChange={handleCityChange}
+                className={`${fieldClassName(
+                  Boolean(errors.city),
+                )} cursor-pointer appearance-none pr-12`}
+                aria-invalid={Boolean(errors.city)}
+              >
+                <option value="">Select your city</option>
 
-            {cities.map((city) => (
-              <option key={city} value={city}>
-                {city}
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+
+                <option value={OTHER_CITY_VALUE}>
+                  {OTHER_CITY_VALUE}
+                </option>
+              </select>
+
+              <svg
+                aria-hidden="true"
+                className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+            </>
+          )}
+        </div>
+
+        {errors.city && (
+          <p className="mt-1.5 text-sm text-red-600">
+            {errors.city.message}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label
+          htmlFor="service-type"
+          className="mb-2 block text-sm font-semibold text-slate-800"
+        >
+          Service type <span className="text-orange-600">*</span>
+        </label>
+
+        <div className="relative">
+          <select
+            id="service-type"
+            {...register('serviceType')}
+            className={`${fieldClassName(
+              Boolean(errors.serviceType),
+            )} cursor-pointer appearance-none pr-12`}
+            aria-invalid={Boolean(errors.serviceType)}
+          >
+            <option value="">Select service type</option>
+
+            {serviceTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
               </option>
             ))}
-
-            <option value={OTHER_CITY_VALUE}>
-              {OTHER_CITY_VALUE}
-            </option>
           </select>
 
           <svg
@@ -390,41 +476,12 @@ export default function ContactForm() {
           </svg>
         </div>
 
-        {errors.city && selectedCity !== OTHER_CITY_VALUE && (
+        {errors.serviceType && (
           <p className="mt-1.5 text-sm text-red-600">
-            {errors.city.message}
+            {errors.serviceType.message}
           </p>
         )}
       </div>
-
-      {selectedCity === OTHER_CITY_VALUE && (
-        <div className="animate-[fadeIn_200ms_ease-out]">
-          <label
-            htmlFor="custom-city"
-            className="mb-2 block text-sm font-semibold text-slate-800"
-          >
-            Your city <span className="text-orange-600">*</span>
-          </label>
-
-          <input
-            id="custom-city"
-            type="text"
-            value={customCity}
-            onChange={handleCustomCityChange}
-            autoComplete="address-level2"
-            className={fieldClassName(
-              Boolean(errors.city) || Boolean(errorMessage),
-            )}
-            placeholder="Enter your city"
-          />
-
-          {errors.city && (
-            <p className="mt-1.5 text-sm text-red-600">
-              {errors.city.message}
-            </p>
-          )}
-        </div>
-      )}
 
       <div>
         <label
@@ -624,12 +681,11 @@ export default function ContactForm() {
 
             <div>
               <p className="font-semibold text-emerald-900">
-                Thank you for your request!
+                Got it! We'll reply within 24 hours.
               </p>
 
               <p className="mt-1 text-sm text-emerald-700">
-                We received your project details and will be in
-                touch soon.
+                Check your email for a confirmation. We'll be in touch soon!
               </p>
             </div>
           </div>

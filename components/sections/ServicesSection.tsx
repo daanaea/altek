@@ -119,7 +119,7 @@ const services = [
     title: "Outdoor Projects",
     description:
       "Outdoor repairs and upgrades built for function, durability, and curb appeal",
-    image: "/images/services/outdoor-projects.webp",
+    image: "/images/gallery/outdoor-projects/66.webp",
     alt: "Outdoor projects and improvements",
     galleryHref: "/gallery/outdoor-projects",
     items: [
